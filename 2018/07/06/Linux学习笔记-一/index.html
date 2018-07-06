@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Linux," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="《鸟哥的Linux私房菜》读书笔记">
+<meta name="keywords" content="Linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux学习笔记(一)">
+<meta property="og:url" content="http://yoursite.com/2018/07/06/Linux学习笔记-一/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="《鸟哥的Linux私房菜》读书笔记">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-07-06T10:42:51.333Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Linux学习笔记(一)">
+<meta name="twitter:description" content="《鸟哥的Linux私房菜》读书笔记">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/07/06/Linux学习笔记-一/"/>
+
+
+
+
+
+  <title>Linux学习笔记(一) | Hexo</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+    <a href="https://github.com/iunique"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_left_white_ffffff.png" alt="Fork me on GitHub"></a>
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hexo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/06/Linux学习笔记-一/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="hjy">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/timg.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Linux学习笔记(一)</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-06T18:19:03+08:00">
+                2018-07-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+              <div class="post-description">
+                  《鸟哥的Linux私房菜》读书笔记
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>1.当指令过长时，用\可以吸收一个回车跳到下一行继续写指令<br>如：ls -al /（此处立即接一个回车）<br>         ~<br>         和 ls -al ~的效果是一样的，表示列出名为”~”的文件夹下所有包括隐藏文件及其属性</p>
+<ol start="2">
+<li>命令locale可以显示目前所支持的语言语系<br>3.修改语系<br>  修改为英文语系：<br>  LANG=en_US.utf8<br>  export  LC_ALL=en_US.utf8<br>  其中LANG只与输出的讯息有关，还要更改其他信息，要同步更新LC_ALL，当退出linux后该修改指令就无效了<br>4.显示日期指令：date<br>  想要格式化显示时间，如2015/05/29，输入命令：<pre><code>date +%Y/%m/%d
+</code></pre>  显示当前时间：14:33<pre><code>date +%H:%M
+</code></pre>5.显示日历：cal<br>  查询2015年的日历：cal 2015<br>  查询2015年10月的日历：cal 10 2015<br>6.计算器：bc<br>  输入bc后和正常的计算器一样使用就行了，默认进行整数运算，若要输出小数点的位数，则scale=3，表示输出小数点后3位<br>  输入quit退出计算器<br>7.Tab按键<br>  Tab具有命令补全和文件补全功能：<pre><code>比如写一个命令date，然后按一下Tab键就会列出后面可以紧跟的所有参数
+当运行一个叫startup.bat的文件时，假如你该目录下没有别的类似于这个名字的，输入：
+    ./startu  不用写完，按一下Tab就会自动补全该文件名，前提是输入的字符足够判断是哪一个文件
+</code></pre>8.ctrl c按键<br>  该按键用于终止正在运行的指令<br>9.ctrl d按键<br>  表示键盘结束输入，离开命令行，EOF即End Of File的意思，和exit作用差不多<br>10.shift PageUp或者是Page Down：<br>  当指令输出信息过长是，用于进行页面切换<br>11.命令 –help参数<br>  用于了解该命令的可加参数及其格式用法，如cal –help和date –help<br>12 .man page<br>  man是manual的简写，即操作说明，比如man date可以看到与date有关的详细参数和命令说明<br>13.info page<br>  和man的作用差不多也是帮助系统的一种，亮点是如果太繁杂按h可以显示简易版命令说明<br>14.指令说明文件<br>  在/usr/share/doc/下有很多说明文档可以查阅<br>15.netstat -a<br>  查看网络的连线状态<br>16.ps -aux<br>  查看当前主机的使用状态<br>17.数据写入磁盘 sync<br>  在linux系统中为了加快数据读取速度，对于一个经常改写的数据不会立即写入硬盘中，这就有可能造成数据丢失，使用sync就可一同步更新数据，目前shutdown，reboot，halt等指令在关机之前都会执行sync这个工具调用<br>18.关机/重启<br>  关机：shutdown<pre><code>相关参数：
+        -k 不是真的关机，只是把警告信息发出去
+        -r 重启
+        -h 立即关机
+        -c 取消已经在shutdown指令的内容
+        时间：如果没有指定关机时间，默认在一分钟以后关机
+        shutdown -h now立即关机，
+        shutdown -h 20:25在20：25时关机
+        shutdown -h +10 &apos;the system will shutdown&apos;在十分钟后关机，-r命令也是如此,后面的语句为提示信息会给所有的线上使用者
+</code></pre>  重启:reboot,halt,poweroff<br>19.linux账号信息相关<br>  默认将所有系统上的账号包括root的相关信息记录在/etc/passwd文件内，个人密码在/etc/shadow文件下，所有群组名称记录在/etc/group内<br>20.文件权限相关<br>  如一下是ls -al的查询结果<br>  drwxr-xr-x  42 hjy  hjy     4096 7月   6 13:03 .<br>  -rw-r–r–   1 hjy  hjy     3748 4月   4 03:06 .bashrc<br>  drwxr-xr-x  13 hjy  hjy     4096 7月   6 13:03 .cache<br>  解释：<pre><code>第一栏
+        第一个字符代表文件属性：d是目录，-是文件，i表示链接文件，b为可随机存取设备，c为一次性读取设备
+        接下来如rwx，r代表可读，w代表可写，x代表可执行，三个字符出现的位置不变，如果没有权限显示为-
+        第一组为文件拥有者可具备的权限（3位一组，每个rwx）
+        第二组为加入此群组账号的权限
+        第三组为非本人且没有加入本群组的其他账号的权限
+第二栏表示有多少个文件名链接到此节点
+第三栏表示这个文件或目录拥有者的账号
+第四栏表示这个文件所属的群组
+第五栏为文件的容量大小，以bytes位为单位
+第六栏为这个文件最近修改的日期
+第七栏为文件名
+</code></pre>21.群组的修改 chgrp<br>  change group的缩写，例如：chgrp users test.txt，将test.txt文件的群组修改为users，注意修改的群组名字必须要存在，即在/etc/group中，否则报错<br>22.改变文件拥有者 chown<br>  change owner的缩写，注意拥有者要为已存在的账号，即在/etc/passwd有记录中<br>  例如：<pre><code>chown hjy test.txt  将该文件的所有者修改为hjy    
+chown root:root test.txt  将该文件的所有者和群组都修改为root
+</code></pre>23.将文件复制给其他人 cp<br>  该命令可进行文件拷贝并改名：cp test1.txt test2.txt 将test1.txt拷贝为test2.txt，拷贝的同时会复制执行者的属性和权限<br>24.改变权限 chmod<br>  改变权限的方式有两种，分别是数字的方式和符号的方式。<br>  数字方式：<pre><code>各个权限的分数如下：r：4   w：2  x：1
+二进制可以表示任何一种唯一的状态的思想，这些分数加起来的权值就代表这一种状态
+在笔记20中有说分成可3组，每一组为一个rwx,假如一个文件的权限为rwxrwxrwx，即任何拥有者，群组，其他人都可以使用，那么该文件的权限数字为777
+chmod 777 test.txt 这样就可以把test.txt文件修改为这种状态了
+</code></pre>  符号方式：<pre><code>三个身份，u代表user，g代表froup，o代表others，a代表all即全部身份
+chmod u=rwx,go=rx test.txt  将test.txt这个文件修改为对user可读可写可执行，对group和others可读可执行
+如果给u添加一个权限：
+chmod u+r test.txt表示给users添加一个读权限
+如果给u移除一个权限：
+chmod u-x text.txt 表示给users去掉一个可执行权限
+</code></pre>25.linux文件<br>  任何设备在linux下都是文件，大体分为以下几类：<br>  正规文件：<pre><code>纯文本文件：最常见的类型，内容为可以直接读到的数据，cat+文件名可以直接查看其内容
+二进制档：linux中的可执行文件，一系列指令
+数据格式文件：程序运行中会读取一些特定格式的文件，档cat读取是会出现乱码
+</code></pre>  目录：顾名思义<br>  链接文件：类似于windows下的快捷方式，用于快速跳转<br>  设备与设备文件：<pre><code>通常集中在/dev目录下，分为两种
+        区块设备文件：用于随机存取周边设备，如软盘和硬盘
+        字符：一些周边设备，比如键盘鼠标
+</code></pre>  数据接口文件sockets：<pre><code>与网络上的某个程序承接，客户端可以通过sockets进行数据沟通，通常放在/run和/tmp
+</code></pre>  数据输送档：主要目的是用于解决多个程序同时存取一个文件造成的错误问题<br>26.linux文件扩展名<br>  .sh：脚本或批处理文件，用shell写成<br>  .Z,.tar,.tar.gz,.zip,.tgz：经过打包的压缩文件，扩展名不同是因为用的压缩方式不同<br>  .html,.php：这个就是符合html和php语法的网页文件，可以通过client端的浏览器server端浏览<br>27.FHS–linux目录配置依据<br>  FHS是一种目录配置的一般性规定，大致有如下一些：<pre><code>/bin：放可执行性文件，cat，chmod，chown，date等
+/boot:放开机会使用到的文件，如一些所需的配置文件
+/dev:存放设备
+/ect:系统的主要配置文件都放在这，一般比较重要的文件只有root可修改
+/lib：放开机时会用到的函数库
+/media:顾名思义存放媒体，即可移除设备
+/opt:存放第三方协力软件
+/run:开机后产生的各项信息
+/sbin:其中许多指令用于设置系统环境，一般只有root可以使用，其他人只能够读
+/srv:service的缩写，如www和FTP服务要用的数据目录放在里面
+/tmp：正在执行的程序暂时存放文件的地方，任何人都可以读取，需要定时清理
+/home:系统默认的使用者主文件夹
+</code></pre>28.常用的目录变换指令<br>  cd：变换目录<pre><code>cd ..回到这层目录的上一层目录
+cd 绝对路径或相对路径进行目录变换
+cd ~回到使用者主目录，即/hone/hjy
+cd /回到根目录
+</code></pre>  pwd：显示当前目录<br>  mkdir：创建一个新的目录，可以加参数-m 777表示给新建一个权值为777（笔记24中）的文件<br>  rmdir：删除一个空目录，如果不问空，要递归删除子目录，则：rm -r test表示将test目录及其子目录都删除掉<br>29.可执行文件路径的变量：PATH<br>  echo $PATH  可以查看有哪些目录被定义出来了，每个目录中间会用冒号隔开，有顺序之分，如果有两个目录下都有同一个命令的可执行文件，则执行最前面那一个<br>  把路径添加进PATH：PATH=”${PATH}:/root”表示将/root加入环境变量中<br>30.文件与目录的检视：ls<br>  ls是linux系统中最常用的命令，用于查看当前目录下文件的信息，一些常用的参数如下：<pre><code>ls：默认列出该目录下的文件名或目录名（不包括隐藏文件目录）
+-a:列出包括.开头的隐藏文件
+-d：列出目录本身，而不是里面的文件数据
+-l:列出长数据串，包括文件属性，权限
+</code></pre></li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Linux/" rel="tag"># Linux</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/06/04/Hexo/" rel="next" title="使用github搭建Hexo博客">
+                <i class="fa fa-chevron-left"></i> 使用github搭建Hexo博客
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/timg.jpeg"
+                alt="hjy" />
+            
+              <p class="site-author-name" itemprop="name">hjy</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">hjy</span>
+
+  
+</div>
+
+
+  <div class="powered-by">
+  <div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+  由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
+<script type="text/javascript" src="/js/src/love.js"></script>
