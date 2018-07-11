@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="linux," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="《鸟哥的Linux私房菜》读书笔记">
+<meta name="keywords" content="linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="postlinux学习笔记(二)">
+<meta property="og:url" content="http://yoursite.com/2018/07/11/postlinux学习笔记-二/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="《鸟哥的Linux私房菜》读书笔记">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-07-11T03:57:29.054Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="postlinux学习笔记(二)">
+<meta name="twitter:description" content="《鸟哥的Linux私房菜》读书笔记">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/07/11/postlinux学习笔记-二/"/>
+
+
+
+
+
+  <title>postlinux学习笔记(二) | Hexo</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+    <a href="https://github.com/iunique"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_left_white_ffffff.png" alt="Fork me on GitHub"></a>
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hexo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/11/postlinux学习笔记-二/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="hjy">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/timg.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">postlinux学习笔记(二)</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-11T11:56:26+08:00">
+                2018-07-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+              <div class="post-description">
+                  《鸟哥的Linux私房菜》读书笔记
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>31.复制，删除，移动 cp ,rm,mv<br>        cp:复制文件或目录，用法：cp 来源文件 目标文件<br>                cp后可加一些常用的参数表特殊含义：<br>                        -i:若目标文件已经存在时，会询问是否进行覆盖<br>                        -p:备份常用，同文件的权限，用户，时间等一系列属性复制过去，而非系统默认属性<br>                        -r:递归进行子目录复制<br>                cp用于复制链接属性的文件时复制的是源文件，如果想要复制链接文件加上参数-d，复制像密码档之类的东西要加上-p进行权限复制<br>        rm：删除文件或目录<br>                用法：rm [可加参数] 文件或目录<br>                参数：<br>                        -f:强制删除，不会出现任何警告信息<br>                        -i:互动模式，会询问是否进行删除<br>                        -r:递归删除，通常用于目录删除，非常危险<br>                注意的是当执行-r的时候，默认进行-i，只会询问一次是否删除，无视其子目录的询问，有可能会误杀<br>        mv:移动文件或更名:<br>                mv [可加参数] 来源文件 目标文件<br>                参数：<br>                        -f:强制，如果目标文件已经存在，不会询问而直接覆盖<br>                        -i:若目标已存在，会进行询问是否覆盖<br>                        -u:若目标已经存在，当来源文件较新时才会进行更新<br>                mv可用于单个文件改名，linux中还有一个rename命令可以给大量文件改名<br>32.获得路径文件的名称与目录名称<br>        basename /etc/sysconfig/network 就可以得到其文件名为network<br>        dirname /etc/sysconfig/network 就可以获得目录名/etc/sysconfig<br>33.文件内容阅览<br>        cat:从第一行开始显示内容<br>        tac:cat倒过来写，表示从最后一行开始显示内容<br>        nl:显示的时候顺便输出行号<br>        more：一页一页得显示文件内容<br>        less:和more类似，比more更好的是可以往前翻页<br>        head:只看头几行<br>        tail:只看尾巴几行<br>        od:以二进制的方式读取文件内容<br>34.cat<br>        参数:<br>                -A：可以列出特殊符号而不是空白<br>                -b:可以列出行号，仅对非空白行显示行号<br>                -E:将结尾的断行字符$显示出来<br>                -n：打印出连同空白符号一起算的行号<br>                -T:显示出tab制表符为^I<br>35.nl<br>        -b:指定行号指定方式，有两种:-b a:表示不论是否有空行都显示行号,-b t:默认值，不显示空行的行号<br>        -n:列出行号的显示方法，格式控制，具体查相关资料<br>36.more<br>        操作说明:<br>                 空格:向下翻一页<br>                回车：向下翻一行<br>                /字串:表示在内容中查找该关键字<br>                q:退出<br>                b:往回翻页，只对文件有用<br>37.less<br>        操作说明:<br>                空格:向下翻动一页<br>                pagedown/up:向下/上翻动一页<br>                /字串:向下搜索该关键字<br>                ?字串:向上搜索该关键字<br>                g:到该数据的第一行去<br>                G:到数据的最后一行去<br>                q:退出<br>38.head，tail数据节取<br>        head -n 20:表示取出前20行<br>        tail有个特殊的参数-f，专用来侦测后几行的变化情况，直到按ctrl c停止<br>39.修改文件时间或创建文件<br>        modification time(mtime):当文件数据内容变化的时候会更新该时间<br>        status time(ctime):当文件状态如权限属性更改了，该时间会改变<br>        access time(atime):当文件内容被取用时该时间会更新<br>        touch可加一系列参数来修改上述几个时间，略，最常用的是用来创建一个空文件。<br>40.文件默认权限:umask<br>        umask用于指定目前使用者在创建文件或目录时候用的默认权限<br>        直接输入umask可以得知当前权限信息，有四个数字，第一个数字为特殊权限值，另外三个和chmod时的权限值相同含义，<br>        表示的是该默认值需要减掉的权限，如022，表示在group和others中被拿掉了2分，即写属性，整个当前的创建文件时的属性就为755<br>        当输入umask -S就会以符号的形式显示出权限值<br>        设置:umask 002就表示当前权限设置为775，此后touch的文件或目录的权限就为775<br>41.文件隐藏属性<br>        chattr:设置文件隐藏属性，与系统安全有关，参数介绍较长，要用的时候百度吧～<br>        Isattr:显示文件隐藏属性</p>
+<ol start="42">
+<li>文件的特殊权限:SUID,SGID,SBIT<pre><code>Set UID权限，简称SUID，这个权限仅在二进制文件中存在，我的理解：当非文件主人对一个二进制文件只有x执行的权限时，却可以做类似于w写
+的权限对内容进行修改，比如linux中的/usr/bin/passwd,不能用cat查看,对一般人只有x执行的权限，但是却可以对密码进行修改
+当ls -l时的s标志表示该文件具有SUID权限
+SGID也是类似，当一个二进制文件有x权限时，却获得了类似于r读的权限
+SBIT只对目录有效，当使用者对此目录下的文件有w,x权限,即对文件具有修改删除等权限，但是加了SBIT时，只允许自己或root删除，更名，移动自己的文件
+尽管有wx权限也无法对别人的文件进行删除，更名，移动操作
+</code></pre>43.SUID,SGID,SBIT权限的设置<pre><code>类似于chmod的修改其他权限方法：
+4为SUID，2为SGID，1为SBIT，unmask的第一个数字即表示该属性，chmod 4775代表了给该文件加一个SUID权限，也可以用符号法添加
+</code></pre>44.查看文件类型file<pre><code>该命令可以用于查看文件类型，常用语查看压缩包类型来选择解压方式
+</code></pre>45.指令文件名的搜索which<pre><code>该命令是通过PATH这个环境变量所规范的路径去搜寻可执行文件名，若加上-a参数，会列出所有可以找到的同名可执行文件
+该命令找的是可执行文件，如bash内置的命令history是找不到的
+</code></pre>46.文件文件名的搜寻:whereis<pre><code>该命令只找特定目录下的文件，locate是利用数据库来搜寻文件名，find不是很常用，速度慢的全局查找
+whereis主要针对/bin/sbin下的可执行文件，有些文件是找不到的
+可加参数：
+        -l:列出whereis会去查询的几个主要目录
+        -b:只查找二进制文件
+        -m:只在说明文档manual中查找
+        -s:只找source的来源文件
+        -u:搜索不在上述3个项目中的文件
+</code></pre>47.locate<pre><code>该命令为模糊匹配，只要包含关键字的文件都会被列出来，查询起来比较快，是通过自己创建的数据库/var/lib/mlocate里的数据搜寻到的，不用直接去硬盘
+读取数据，该数据库默认每天更新一次，如果当天创建的文件想查到只能先updatedb
+</code></pre>48.find<pre><code>该查找方式可加的参数与笔记39中三种时间有关，以mtime说明
+        -mtime n:n为数字，意义为在n天之前的一天内被更改过的内容文件
+        -mtime +n:列出在n天之前(不包含第n天)被更改过的文件名
+        -mtime -n:可出在n天之内(含第n天)被更改过内容的文件名
+        -newer file:file为一个存在的文件名，列出比file还要新的文件名
+        eg:
+                find /var -mtime -4 表示在/var中查找4天内内容被更改过的文件名
+        还可以类似于正则表达式查询:find /etc -name &apos;*http*&apos; 这样会找出所有包含http的文件
+        该命令还可以查找根据拥有者和群组，权限，文件类型等的查找，略
+</code></pre>49.权限与指令的关系<pre><code>(1)使用这进入某目录使用可工作工作区的基本权限
+        使用cd变换工作路径
+        使用者至少要有x权限
+        额外需求:使用者想要在这个目录内ls查看文件名，还要有r权限
+(2)使用者在某目录内读取一个文件的基本权限
+        使用cat，more，less等指令
+        使用者至少要有x权限
+        文件所需权限:至少要有r，w权限 
+(3)让使用者可以修改一个文件的基本权限
+        使用vi以及vim编辑器等
+        目录所需的权限:使用者至少要有x权限
+        文件所需权限:r,w权限
+(4)让一个使用者创建一个文件的基本权限
+        目录所需权限:使用者要有w，x权限
+(5)让使用者进入某个目录并执行该目录下的某个指令的权限
+        目录所需权限:x权限
+        文件所需权限:使用者至少要有x权限
+</code></pre>50.压缩文件<pre><code>常见的压缩文件扩展名:
+        .Z：compress程序压缩文件
+        .zip:程序压缩文件
+        .gz:gzip程序压缩文件
+        .bz2:bzip2程序压缩文件
+        .xz:xz程序压缩文件
+        .tar:tar程序打包文件，并没有压缩
+        .tar.gz:tar程序打包文件，并进过gzip压缩
+</code></pre>51.gzip<pre><code>gzip [参数] 文件名
+-c:将压缩的数据输出到屏幕上
+-d:解压缩的参数
+-t:检验一个压缩文件的一致性
+-v:显示出原文件/压缩文件的压缩比
+-数字:代表压缩等级，-1最块，但是压缩比最差，-9最慢，但是压缩比最好，默认是-6
+.gz为扩展名的文件可以用zcat查看，在压缩文件中查找关键词可用grep，不需要解压缩就可以用egrep，支持zmore,zless等
+</code></pre>52.bzip2<pre><code>bzip2用于提供更好的压缩比而成立,压缩比比gzip好
+bzip2 [参数] 文件名
+-c:将压缩过程产生的数据输出到屏幕上
+-d:解压缩的参数
+-k:保留原始文件而不会删除原文件
+-z:压缩的参数，可以不加
+-v:显示压缩比
+-数字:和gzip同样计算压缩比的参数
+.bz2为扩展名的压缩文件可以用bzcat查看，支持bzmore，bzless
+</code></pre>53.xz<pre><code>比上面两个压缩软件更高的压缩比，用法和bzip一模一样
+.xz为扩展名的压缩文件用xzcat查看，支持 xzless，xzmore
+</code></pre>54.打包指令tar<pre><code>打包与压缩:tar [-z|-j|-J] [cv] [-f 待创建的新文件名]  目标文件名
+查看文件名:tar [-z|-j|-J] [tv] [-f 已经有的tar文件名]
+解压缩:tar [-z|-j|-J] [xv] [-f 已有的tar文件名] [-C目录]
+参数:
+-c:创建打包文件，可配合-v来查看过程中被打包的文件名
+-t:查看打包的内容含有哪些文件名
+-x:解压缩，注意上三个参数不相容
+-z:以gzip的方式进行压缩\解压缩，取名最好为.gz结尾
+-j:以bzip2的方式进行压缩\解压缩，取名最好为.bz2结尾
+-J:以xz的方式进行压缩\解压缩注意此三个参数不相容，取名最好为.xz结尾
+-v:在压缩\解压缩的过程中将正在处理的文件名显示出来
+-f:后面加立刻要被处理的文件名
+-C:在特定目录下进行解压
+-p:保留备份数据的原本权限和属性，常用于-c备份重要的配置文件
+-P:保留绝对路径
+--exclude=加文件目录:表示打包时排除这些文件
+eg:
+        压缩:tar -jcv -f filename.tar.bz2 要被压缩的文件或目录
+        查询:tar -jtv -f filename.tar.bz2
+        解压缩:tar -jxv -f filename.tar.bz2 -C 欲解压的目录
+</code></pre>55.关于文件备份<pre><code>xfsdump指令可以备份文件系统或单一目录
+xfsdump针对文件系统时可进行0-9的level差异备份，其中level 0为完整备份
+xfsrestore可还原被xfsdump备份的文件
+cpio为相当优秀的备份指令，要搭配find来读入要备份的文件名数据
+</code></pre>56.linux命令行下的文本编辑器<pre><code>常用的有:emacs,pico,nano,joe以及vim
+</code></pre>57.vim<pre><code>所有的unix系统都会内置vi文本编辑器，但是其他的文本编辑器不一定在，vm作为vi的进阶版本学习就很有必要
+</code></pre>58.vi的使用<pre><code>vi分为3中模式
+一般指令模式:以vi打开一个文件就直接进入该模式，这个模式中可以使用上下左右按键移动光标，可以删除复制整行整列
+编辑模式:这个模式用于对文本内容进行编辑，输入i,o,a,r任何一个字母会进入编辑模式，此时下方会显示insert或者replace的字样，按esc退出该模式
+命令行模式:在一般模式中，输入:/?三个中任何一个可以将光标移动到最下面一列，这个模式中，可以进行数据读取，储存，大量取代字符,显示行号等动作
+存盘指令:在命令行模式中输入w即write存盘，再输入q即quit离开，就可以完成存储工作
+更多的指令略，有命令补齐，关键字搜索，多文本操作等强大功能～
+</code></pre>59.中文编码问题<pre><code>vim无法正常显示中文，很有可能就是编码问题，中文编码有big5和utf8两种，如果用big5制作但用utf8读取就会出现乱码，修正方法笔记3中有
+</code></pre>60.iconv<pre><code>该软件可用于进行文件的语系编码转换
+</code></pre></li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/linux/" rel="tag"># linux</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/07/06/暑假计划/" rel="next" title="暑假计划">
+                <i class="fa fa-chevron-left"></i> 暑假计划
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/timg.jpeg"
+                alt="hjy" />
+            
+              <p class="site-author-name" itemprop="name">hjy</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">hjy</span>
+
+  
+</div>
+
+
+  <div class="powered-by">
+  <div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+  由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
+<script type="text/javascript" src="/js/src/love.js"></script>
