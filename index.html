@@ -249,6 +249,128 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/02/python学习笔记-一/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="hjy">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/timg.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/09/02/python学习笔记-一/" itemprop="url">python学习笔记(一)</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-02T16:19:25+08:00">
+                2018-09-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>1.py交互模式<br>命令行下输入python进入交互模式，可写py代码，输入exit()再按回车退出交互模式<br>2.运行.py文件<br>python xx.py<br>3.Linux上直接运行.py脚本<br>在文件开头加上注释:#!/usr/bin/env python3<br>然后给该文件加上可执行权限:<br>chmod a+x xx.py<br>之后就可以./xx.py运行了<br>ps:总是报错说找不到env，度娘也找不到答案，感觉大概是系统装了太多版本的py<br>4.print()函数<br>打印出指定文字，把希望打印的文字用单引号或双引号括起来<br>接受多个字符串时用逗号隔开<br>py2会吧括号显示出来，py3就不会了<br>想打印出引号要加/作转义字符，//则显示/<br>如果很多字符不需要转义，加上r’xxxxx’<br>这之间的字符不会被转义<br>通常用print(‘’’<br>xx<br>xx<br>xx’’’)来表示多行内容<br>5.input()函数<br>name=input()可以直接接收输入字符串<br>name=input(‘请输入你的名字’)这样可以起到提示输入作用<br>input的返回值为str类型，若要当整数使用用int函数转换<br>6.布尔运算<br>值要么是True，要么是False<br>and表示与运算，or表示或运算，not表示非运算<br>7.动态语言特效<br>py运行给同一个变量赋不同类型的值，比如定义时:<br>a=123<br>a=‘ABC’<br>这样是允许的<br>通常全部大写表示常量，如PI<br>8.除法<br>/表示除法，即使结果为整数也会表示为浮点数<br>//表示地板除，结果永远为整数<br>9.字符编码<br>py3中采用的是Unicode编码<br>ord函数可以用来将字符转化为编码的整数表示<br>比如:ord(‘A’)就会得到A的Unicode编码65<br>ord(‘中’)可以得到编码20013<br>chr函数可以讲编码转换为对应的字符<br>chr(66)就可以得到B<br>chr(25991)可以得到文<br>一个字符对应若干字节，如果要在网络上传输，要将str变为字节单位bytes<br>bytes类型数据带前缀b加引号表示<br>x = b’ABC’<br>str字符串可以通过encode函数编码为指定的bytes<br>‘ABC’.encode(‘ascii’)<br>b’ABC’<br>这样将’ABC’用ascii的方式变为了bytes字节<br>注意：中文编码超过了ascii范围，要用utf-8或者gbk的方式来编译，否则报错<br>同理可以讲字节bytes通过decode来解码<br>len函数可以来求字串长度<br>py脚本为了让解释器按utf-8编码读取，通常在文件开头加上:</p>
+<p>#!/usr/bin/env python3</p>
+<h1 id="coding-utf-8"><a href="#coding-utf-8" class="headerlink" title="-- coding: utf-8 --"></a>-<em>- coding: utf-8 -</em>-</h1><p>第一行注释是为了告诉Linux系统，这是一个Python可执行程序，Windows系统会忽略这个注释；<br>第二行注释是为了告诉Python解释器，按照UTF-8编码读取源代码，否则，你在源代码中写的中文输出可能会有乱码。<br>申明了UTF-8编码并不意味着你的.py文件就是UTF-8编码的，必须并且要确保文本编辑器正在使用UTF-8 without BOM编码<br>10.格式化字串<br>占位符和c语言一致，输出时稍有不同<br>‘Hi, %s, you have $%d.’ % (‘Michael’, 1000000)<br>结果:’Hi, Michael, you have $1000000.’<br>不确定类型时可用%s，它会讲任何数据类型转化为字符串<br>若要输出%，两个%可表示<br>format函数也可格式化字符串，它会讲传入参数依次替换占位符{0}，{1}，{2}…<br>‘Hello, {0}, 成绩提升了 {1:.1f}%’.format(‘小明’, 17.125)<br>结果:’Hello, 小明, 成绩提升了 17.1%’<br>可用用过replace函数将相应的字符串/字符替换:<br>a = ‘abc’<br>a.replace(‘a’, ‘A’)<br>注意只是函数返回的字串变了，a字串本身不变<br>11.list<br>classmates = [‘Michael’, ‘Bob’, ‘Tracy’]<br>classmates就是一个list，可用用len(classmates)来求其元素个数<br>classmates[0],classmates[1]..可用依次取用这些元素<br>classmates[-1]可用直接取最后一个元素，-2，,-3同理<br>可用通过append函数往list中添加元素<br>classmates.append(‘Adam’)往末尾添加了一个元素<br>也可以添加入指定位置:<br>classmates.insert(1,’jack’)<br>pop函数不加参数可以删除末尾元素，classmates.pop(1)则会删掉索引为1的元素<br>可用直接赋值替换掉元素内容，各个元素类型可用不同，可用是一个变量，元素也可以是一个list<br>12.tuple<br>tuple叫做元祖，也是一种有序元组，和list相似，但是tuple一旦初始化便不能再修改，没有append和insert这种函数，可正常使用classmates[0]这种元素，但不能进行修改，tuple使得代码更安全<br>t = (1,2)<br>如果要定义一个空元组<br>写成<br>t = ()<br>只有一个元素时，为了和数学的小括号区分，写成<br>t = (1,)<br>当tuple元素为list时list元素可变<br>13.判断语句<br>eg1:<br>age = 3<br>if age &gt;= 18:<br>    print(‘your age is’, age)<br>    print(‘adult’)<br>else:<br>    print(‘your age is’, age)<br>    print(‘teenager’)<br>eg2:<br>age = 3<br>if age &gt;= 18:<br>    print(‘adult’)<br>elif age &gt;= 6:<br>    print(‘teenager’)<br>else:<br>    print(‘kid’)<br>14.循环语句<br>for-in循环:<br>eg:<br>names = [‘Michael’, ‘Bob’, ‘Tracy’]<br>for name in names:<br>    print(name)<br>计算1-10的和：<br>names = [‘Michael’, ‘Bob’, ‘Tracy’]<br>for name in names:<br>    print(name)<br>计算1-100的和，可用range函数，会生成一个整数序列，再通过list函数转化为list：<br>sum = 0<br>for x in range(101):<br>    sum = sum + x<br>print(sum)<br>15.break和continue<br>和c语言相同,一般配合if使用<br>eg1:<br>n = 1<br>while n &lt;= 100:<br>    if n &gt; 10: # 当n = 11时，条件满足，执行break语句<br>        break # break语句会结束当前循环<br>    print(n)<br>    n = n + 1<br>print(‘END’)<br>eg2:<br>n = 0<br>while n &lt; 10:<br>    n = n + 1<br>    if n % 2 == 0: # 如果n是偶数，执行continue语句<br>        continue # continue语句会直接继续下一轮循环，后续的print()语句不会执行<br>    print(n)<br>16.dict<br>py内置的字典dict，其他语言中成为map键值对，具有极快的查找速度<br>eg:<br>d = {‘Michael’: 95, ‘Bob’: 75, ‘Tracy’: 85}<br>d[‘Michael’]则显示95<br>放入字典中除了初始化赋值，也可以直接赋值：<br>d[‘Adam’] = 67<br>用’Thomas’ in d这种方法可用判断key是否存在<br>d.get(‘Thomas’)则可用返回相应的值，若不存在贼返回None，不想返回None也可用自己指定<br>d.get(‘Thomas’,-1)则找不到时返回-1<br>同list，可用pop(key)来删掉元素<br>请务必注意，dict内部存放的顺序和key放入的顺序是没有关系的。<br>和list比较，dict有以下几个特点：<br>查找和插入的速度极快，不会随着key的增加而变慢；<br>需要占用大量的内存，内存浪费多。<br>而list相反：<br>查找和插入的时间随着元素的增加而增加；<br>占用空间小，浪费内存很少。<br>17.set<br>set和dict类似，但不储存value，只判断是否存在，并且元素不能重复<br>s = set([1, 2, 3])<br>若有重复元素则不会继续添加进set，通过add函数可添加函数<br>remove函数可用删除元素，两个set之间可用做交集，并集操作<br>s1 = set([1, 2, 3])<br>s2 = set([2, 3, 4])<br>s1 &amp; s2<br>{2, 3}<br>s1 | s2<br>{1, 2, 3, 4}</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/01/deepin上搭shadowsocks/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1374,7 +1496,7 @@ source filename
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1387,7 +1509,7 @@ source filename
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
