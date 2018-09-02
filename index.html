@@ -450,9 +450,15 @@
 <p>apt-get install python-pip</p>
 <p>2.安装:shadowsocks</p>
 <p>pip install shadowsocks</p>
-<p>3.创建一个配置文件</p>
-<p>在/etc/立创建shadowsocks.json:</p>
-<p>{<br>    “server”:”0.0.0.0”,<br>    “server_port”:1024,#服务使用的端口<br>    “local_address”:”127.0.0.1”,<br>    “local_port”:1080,#本地使用的端口<br>    “port_password”:#配置客户端使用的端口和密码，这里用的是多账号配置<br>    {<br>        “1080”:”pwd1”,#对应的是端口和密码<br>        “1081”:”pwd2”,<br>        “1082”:”pwd3”,<br>        “1083”:”pwd4”,<br>        “1084”:”pwd5”<br>    },<br>    “timeout”:300,#连接超时设置<br>    “method”:”aes-256-cfb”,#加密方式<br>    “fast_open”:true#是否开启加速<br>}<br>4.开启服务</p>
+<p>3.使用脚本搭建并修改配置文件</p>
+<p>git clone <a href="https://github.com/flyzy2005/ss-fly" target="_blank" rel="noopener">https://github.com/flyzy2005/ss-fly</a></p>
+<p>ss-fly/ss-fly.sh -i flyzy2005.com 1024</p>
+<p>其中flyzy2005.com换成你要设置的shadowsocks的密码即可（这个flyzy2005.com就是你ss的密码了，是需要填在客户端的密码那一栏的），密码随便设置，最好只包含字母+数字，一些特殊字符可能会导致冲突。而第二个参数1024是端口号，也可以不加，不加默认是1024~（举个例子，脚本命令可以是ss-fly/ss-fly.sh -i qwerasd，也可以是ss-fly/ss-fly.sh -i qwerasd 8585，后者指定了服务器端口为8585，前者则是默认的端口号1024，两个命令设置的ss密码都是qwerasd）：</p>
+<p>根据自己的配置情况修改配置文件/etc/shadowsocks.json:</p>
+<p>单账号配置方法:</p>
+<p>{<br>    “server”:”0.0.0.0”,<br>    “server_port”:1080,<br>    “local_address”: “127.0.0.1”,<br>    “local_port”:1080,<br>    “password”:”pwd”,<br>    “timeout”:300,<br>    “method”:”aes-256-cfb”,<br>    “fast_open”: true<br>}</p>
+<p>多账号配置方法:</p>
+<p>{<br>    “server”:”0.0.0.0”,<br>    “local_address”:”127.0.0.1”,<br>    “local_port”:1080,#本地使用的端口<br>    “port_password”:#配置客户端使用的端口和密码，这里用的是多账号配置<br>    {<br>        “1080”:”pwd1”,#对应的是端口和密码<br>        “1081”:”pwd2”,<br>        “1082”:”pwd3”,<br>        “1083”:”pwd4”,<br>        “1084”:”pwd5”<br>    },<br>    “timeout”:300,#连接超时设置<br>    “method”:”aes-256-cfb”,#加密方式<br>    “fast_open”:true#是否开启加速<br>}<br>4.开启服务</p>
 <p>ssserver -c /etc/shadowsocks.json -d start</p>
 <p>-d表示在后台运行，如果要停止start改成stop，重启变restart，修改文件要重启才生效</p>
 <p>会提示成功开启</p>
