@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="python," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="18.函数abs函数，接收一个参数，返回其绝对值max函数，可用接收任意多个参数，返回最大的数据转化函数:int,float,str,bool可用把函数名赋值给一个变量，相当于给这个函数取了个别名eg:a = abs # 变量a指向abs函数a(-1) # 所以也可以通过a调用abs函数,显示119.定义函数使用def，依次写出函数名，括号，括号中的参数，冒号，在缩进块中写函数体，返回值用retu">
+<meta name="keywords" content="python">
+<meta property="og:type" content="article">
+<meta property="og:title" content="python学习笔记(二)">
+<meta property="og:url" content="http://yoursite.com/2018/09/06/python学习笔记-二/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="18.函数abs函数，接收一个参数，返回其绝对值max函数，可用接收任意多个参数，返回最大的数据转化函数:int,float,str,bool可用把函数名赋值给一个变量，相当于给这个函数取了个别名eg:a = abs # 变量a指向abs函数a(-1) # 所以也可以通过a调用abs函数,显示119.定义函数使用def，依次写出函数名，括号，括号中的参数，冒号，在缩进块中写函数体，返回值用retu">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-09-06T08:38:59.772Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="python学习笔记(二)">
+<meta name="twitter:description" content="18.函数abs函数，接收一个参数，返回其绝对值max函数，可用接收任意多个参数，返回最大的数据转化函数:int,float,str,bool可用把函数名赋值给一个变量，相当于给这个函数取了个别名eg:a = abs # 变量a指向abs函数a(-1) # 所以也可以通过a调用abs函数,显示119.定义函数使用def，依次写出函数名，括号，括号中的参数，冒号，在缩进块中写函数体，返回值用retu">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/09/06/python学习笔记-二/"/>
+
+
+
+
+
+  <title>python学习笔记(二) | Hexo</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+    <a href="https://github.com/iunique"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_left_white_ffffff.png" alt="Fork me on GitHub"></a>
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hexo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/06/python学习笔记-二/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="hjy">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/timg.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">python学习笔记(二)</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-06T16:38:22+08:00">
+                2018-09-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>18.函数<br>abs函数，接收一个参数，返回其绝对值<br>max函数，可用接收任意多个参数，返回最大的<br>数据转化函数:<br>int,float,str,bool<br>可用把函数名赋值给一个变量，相当于给这个函数取了个别名<br>eg:<br>a = abs # 变量a指向abs函数<br>a(-1) # 所以也可以通过a调用abs函数,显示1<br>19.定义函数<br>使用def，依次写出函数名，括号，括号中的参数，冒号，在缩进块中写函数体，返回值用return语句返回<br>eg:<br>def my_abs(x):<br>    if x &gt;= 0:<br>        return x<br>    else:<br>        return -x<br>若没有return，也会返回结果，会是None，相当于return None<br>空函数:<br>如果想定义一个什么事也不做的空函数，可以用pass语句:<br>def nop():<br>    pass<br>pass语句什么都不做，那有什么用？实际上pass可以用来作为占位符，比如现在还没想好怎么写函数的代码，就可以先放一个pass，让代码能运行起来。<br>pass还可以用在其他语句里，比如：<br>if age &gt;= 18:<br>    pass<br>20.关于函数<br>可用用户isinstance函数检查数据类型:<br>def my_abs(x):<br>    if not isinstance(x, (int, float)):<br>        raise TypeError(‘bad operand type’)<br>    if x &gt;= 0:<br>        return x<br>    else:<br>        return -x<br> 返回多个值:<br> import math<br>def move(x, y, step, angle=0):<br>    nx = x + step <em> math.cos(angle)<br>    ny = y - step </em> math.sin(angle)<br>    return nx, ny<br>其实返回的是一个tuple<br>设置默认参数时，注意：<br>必选参数在前，默认参数在后，否则Python的解释器会报错<br>函数中对参数的改变不会改变原变量<br>注意:默认参数的变量也是一个变量，如果指向的是[]，如果改变[]的内容，默认内容就变了，通过将默认参数改为None可以解决<br>21.可变参数<br>参数的个数是可变的，由于参数个数不确定，首先讲参数作为一个list或tuple传进来<br>eg:<br>def calc(numbers):<br>    sum = 0<br>    for n in numbers:<br>        sum = sum + n <em> n<br>    return sum<br>调用时要组装成一个list后tuple:<br>calc([1, 2, 3])<br>calc((1, 3, 5, 7))<br>当一个list所有元素作为参数传入时，直接再名字前加</em><br>nums = [1, 2, 3]<br>calc(<em>nums)<br>22.关键字参数<br>关键字参数允许传入0个或任意个含参数名的参数，会在函数内部自动组装为一个dict<br>eg:<br>def person(name, age, <strong>kw):<br>    print(‘name:’, name, ‘age:’, age, ‘other:’, kw)<br>在调用该函数时，kw作为可选参数<br>输入:person(‘Michael’, 30)<br>输出:name: Michael age: 30 other: {}<br>输入:person(‘Adam’, 45, gender=’M’, job=’Engineer’)<br>输出:name: Adam age: 45 other: {‘gender’: ‘M’, ‘job’: ‘Engineer’}<br>输入：extra = {‘city’: ‘Beijing’, ‘job’: ‘Engineer’}<br>     person(‘Jack’, 24, </strong>extra)<br>输出:name: Jack age: 24 other: {‘city’: ‘Beijing’, ‘job’: ‘Engineer’}<br>23.命名关键字参数<br>如果要限制关键字参数的名字，就可以用命名关键字参数，例如，只接收city和job作为关键字参数。这种方式定义的函数如下：<br>def person(name, age, </em>, city, job):<br>    print(name, age, city, job)<br>和关键字参数*<em>kw不同，命名关键字参数需要一个特殊分隔符</em>，<em>后面的参数被视为命名关键字参数。<br>调用方式:person(‘Jack’, 24, city=’Beijing’, job=’Engineer’)<br>24.参数组合<br>在Python中定义函数，可以用必选参数、默认参数、可变参数、关键字参数和命名关键字参数，这5种参数都可以组合使用。但是请注意，参数定义的顺序必须是：必选参数、默认参数、可变参数、命名关键字参数和关键字参数。<br>25.切片<br>py提供切片来从一个list中截取一部分元素<br>eg:<br>L = [‘Michael’, ‘Sarah’, ‘Tracy’, ‘Bob’, ‘Jack’]<br>输入:L[0:3]<br>显示:[‘Michael’, ‘Sarah’, ‘Tracy’]<br>如果第一个数字是0可以省略:L[:3],也支持倒数切片L[-2：-1]<br>前十个数，每两个去一个写法:<br>L[:10:2]<br>所有数，每5个取一个:<br>L[::5]<br>只写L[:]可用原样复制一个list<br>元组也可用切片，切出的结果也为tuple<br>(-,1,2,3,4,5)[:3]<br>结果:(0,1,2)<br>26.迭代<br>for in循环:<br>d = {‘a’: 1, ‘b’: 2, ‘c’: 3}<br>for key in d:<br>    print(key)<br>当遍历dict时候，用value来取其值<br>for value in d.values()<br>如果要同时迭代key和value，写法:<br>for k, v in d.items()<br>如果想循环下标值，py有内置的enumerate函数:<br>for i, value in enumerate([‘A’, ‘B’, ‘C’]):<br>    print(i, value)<br>结果:<br>0 A<br>1 B<br>2 C<br>想再for循环中同时引用两个变量:<br>for x, y in [(1, 1), (2, 4), (3, 9)]:<br>    print(x, y)<br>27.列表生成式<br>生成[1</em>1,2<em>2,4</em>3..]写法:<br>L = []<br>for x in range(1, 11):<br>   L.append(x <em> x)<br>也可写成:<br>[x </em> x for x in range(1, 11)]<br>for循环后可以加上if判断来筛选出偶数的平方:<br>[x <em> x for x in range(1, 11) if x % 2 == 0]<br>结果:[4, 16, 36, 64, 100]<br>还可用两层循环生成全排列:<br>[m + n for m in ‘ABC’ for n in ‘XYZ’]<br>结果:[‘AX’, ‘AY’, ‘AZ’, ‘BX’, ‘BY’, ‘BZ’, ‘CX’, ‘CY’, ‘CZ’]<br>eg:用两个变量来生成list<br>d = {‘x’: ‘A’, ‘y’: ‘B’, ‘z’: ‘C’ }<br>[k + ‘=’ + v for k, v in d.items()]<br>结果:[‘y=B’, ‘x=A’, ‘z=C’]<br>28.生成器<br>一个列表的大小是有限的，如果创建一个很大的列表，每次却只访问前几个元素，那么绝大<br>多数的空间就被浪费了，generator就是为了解决这个问题，每次在循环的过程中不断推算出后续<br>的元素，这样不比创建完整的list，可以节省大量空间，这种一边循环一边计算的机制称为生成器<br>L = [x </em> x for x in range(10)]<br>g = (x <em> x for x in range(10))<br>创建L和g的区别仅在于最外层的[]和()，L是一个list，而g是一个generator<br>如果需要打印出每一个元素，可以通过next(g)打印出来<br>每次调用next(g)就会计算下一个元素的值，直到计算到最后一个元素，没有更多的元素时会抛出错误<br>但是一般不会使用next进行变量，可以使用for循环:<br>g = (x </em> x for x in range(10))<br>for n in g:<br>   print(n)<br>如果推算的算法比较赋值，for循环无法实现时，可用用函数来实现:<br>如，输出斐波拉契数列:<br>def fib(max):<br>    n, a, b = 0, 0, 1<br>    while n &lt; max:<br>        print(b)<br>        a, b = b, a + b<br>        n = n + 1<br>    return ‘done’<br>注意，赋值语句：<br>a, b = b, a + b<br>相当于：<br>t = (b, a + b) # t是一个tuple<br>a = t[0]<br>b = t[1]<br>调用:fib(6)<br>结果:<br>1<br>1<br>2<br>3<br>5<br>8<br>‘done’<br>如果要将上述函数变成generator，只需要讲print(b)变成yield b就可以了：<br>def fib(max):<br>    n, a, b = 0, 0, 1<br>    while n &lt; max:<br>        yield b<br>        a, b = b, a + b<br>        n = n + 1<br>    return ‘done’<br>generator和函数的执行流程不一样。函数是顺序执行，遇到return<br>语句或者最后一行函数语句就返回。而变成generator的函数，在每次<br>调用next()的时候执行，遇到yield语句返回，再次执行时从上次返回的<br>yield语句处继续执行。<br>eg:<br>def odd():<br>    print(‘step 1’)<br>    yield 1<br>    print(‘step 2’)<br>    yield(3)<br>    print(‘step 3’)<br>    yield(5)<br>o = odd()<br>调用:next(o)<br>输出:step 1<br>    1<br>调用:next(o)<br>输出:step 2<br>    3<br>调用:next(o)<br>输出:step 3<br>    5<br>用for循环调用generator时，发现拿不到generator的return语句的返回值。<br>如果想要拿到返回值，必须捕获StopIteration错误，返回值包含在<br>StopIteration的value中：<br>g = fib(6)<br>while True:<br>     try:<br>         x = next(g)<br>         print(‘g:’, x)<br>     except StopIteration as e:<br>         print(‘Generator return value:’, e.value)<br>         break<br>g: 1<br>g: 1<br>g: 2<br>g: 3<br>g: 5<br>g: 8<br>Generator return value: done<br>29.迭代器<br>凡是可作用于for循环的对象都是Iterable类型；<br>凡是可作用于next()函数的对象都是Iterator类型，它们表示一个惰性计算的序列；<br>集合数据类型如list、dict、str等是Iterable但不是Iterator，不过可以通过iter()函数获得一个Iterator对象。<br>Python的for循环本质上就是通过不断调用next()函数实现的<br>可以使用isinstance()判断一个对象是否是Iterable对象：</p>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>from collections import Iterable<br>isinstance([], Iterable)<br>True<br>isinstance({}, Iterable)<br>True<br>isinstance(‘abc’, Iterable)<br>True<br>isinstance((x for x in range(10)), Iterable)<br>True<br>isinstance(100, Iterable)<br>False<br>可以被next()函数调用并不断返回下一个值的对象称为迭代器：Iterator。<br>可以使用isinstance()判断一个对象是否是Iterator对象：<br>from collections import Iterator<br>isinstance((x for x in range(10)), Iterator)<br>True<br>isinstance([], Iterator)<br>False<br>isinstance({}, Iterator)<br>False<br>isinstance(‘abc’, Iterator)<br>False<br>生成器都是Iterator对象，但list、dict、str虽然是Iterable，却不是Iterator。<br>把list、dict、str等Iterable变成Iterator可以使用iter()函数：<br>isinstance(iter([]), Iterator)<br>True<br>isinstance(iter(‘abc’), Iterator)<br>True</p>
+</blockquote>
+</blockquote>
+</blockquote>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/python/" rel="tag"># python</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/09/02/python学习笔记-一/" rel="next" title="python学习笔记(一)">
+                <i class="fa fa-chevron-left"></i> python学习笔记(一)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/timg.jpeg"
+                alt="hjy" />
+            
+              <p class="site-author-name" itemprop="name">hjy</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">hjy</span>
+
+  
+</div>
+
+
+  <div class="powered-by">
+  <div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+  由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
+<script type="text/javascript" src="/js/src/love.js"></script>
