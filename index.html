@@ -249,6 +249,126 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/08/Redis学习笔记/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="hjy">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/timg.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/09/08/Redis学习笔记/" itemprop="url">Redis学习笔记</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-08T15:36:55+08:00">
+                2018-09-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>1.Redis是一个高性能的key-value数据库<br>Redis与其他的key-value缓存产品有以下三个特点:<br>(1)支持数据的持久化，可用将内存中的数据保存在磁盘中，重启的时候可用再次加载使用<br>(2)不仅支持简单的key-value类型的数据，同时提供list，set，zset，hash等数据结构储存<br>(3)Redis支持数据的备份<br>2.Redis优势<br>性能极高，读写速度快，有着丰富的数据类型操作，所有操作都是原子性的，即要么成功执行要么<br>失败完全不执行，多个操作也支持事务，有着丰富的特性。<br>3.安装<br>$sudo apt-get update<br>$sudo apt-get install redis-server<br>启动 Redis<br>$ redis-server<br>查看 redis 是否启动:<br>$ redis-cli<br>以上命令将打开以下终端：<br>redis 127.0.0.1:6379&gt;<br>127.0.0.1 是本机 IP ，6379 是 redis 服务端口。现在我们输入 PING 命令。<br>redis 127.0.0.1:6379&gt; ping<br>PONG<br>以上说明我们已经成功安装了redis<br>4.Redis配置<br>redis 127.0.0.1:6379&gt; CONFIG GET 配置项名<br>可以查看相应的配置信息，可以通过修改redis.conf文件(默认在/etc/redis里)或使用config set命令来修改<br>语法:config set 配置项名 修改的值<br>5.Redis数据类型简介<br>Redis支持五种数据类型：string（字符串），hash（哈希），list（列表），set（集合）及zset(sorted set：有序集合)<br>(1)String<br>string是redis最基本的类型，一个key对应一个value，string类型是二进制安全的，redis的string可以包<br>含任何数据，比如jpg图像或者序列化对象。string类型的值最大能储存512MB。<br>eg:<br>redis 127.0.0.1:6379&gt; SET name “hjy”<br>OK<br>redis 127.0.0.1:6379&gt; GET name<br>“hjy”<br>(2)Hash<br>hash是一个键值对集合，有点像c++里面的map，是一个string类型的field和value的映射表，特别适合用于<br>储存对象,使用hmset，hget来设置，获取值。<br>eg:<br>redis&gt; HMSET myhash field1 “Hello” field2 “World”<br>“OK”<br>redis&gt; HGET myhash field1<br>“Hello”<br>redis&gt; HGET myhash field2<br>“World”<br>(3)List<br>列表是简单的字符串列表，按照插入顺序排序，可以添加一个元素在列表的头部或者尾部。<br>eg:<br>redis 127.0.0.1:6379&gt; lpush runoob redis<br>(integer) 1<br>redis 127.0.0.1:6379&gt; lpush runoob mongodb<br>(integer) 2<br>redis 127.0.0.1:6379&gt; lpush runoob rabitmq<br>(integer) 3<br>redis 127.0.0.1:6379&gt; lrange runoob 0 10<br>1) “rabitmq”<br>2) “mongodb”<br>3) “redis”<br>其中runoob为list的名字，lpush表示往runoob插入一个redis的value<br>lrange表示罗列出list一定范围内的元素<br>(4)Set<br>表示string类型的无序集合，是通过哈希表实现的,所以添加，删除，查找的复杂度都是O(1)<br>添加一个 string 元素到 key 对应的 set 集合中，成功返回1，如果元素已经在集合中返回<br>0，如果 key 对应的 set 不存在则返回错误，通过sadd往set中添加元素:<br>sadd key member<br>eg：<br>redis 127.0.0.1:6379&gt; sadd runoob redis<br>(integer) 1<br>redis 127.0.0.1:6379&gt; sadd runoob mongodb<br>(integer) 1<br>redis 127.0.0.1:6379&gt; sadd runoob rabitmq<br>(integer) 1<br>redis 127.0.0.1:6379&gt; sadd runoob rabitmq<br>(integer) 0<br>redis 127.0.0.1:6379&gt; smembers runoob<br>1) “redis”<br>2) “rabitmq”<br>3) “mongodb”<br>以上实例中 rabitmq 添加了两次，但根据集合内元素的唯一性，第二次插入的元素将被忽略<br>(5)zset<br>zset也和set一样是string类型元素的集合，且不允许重复的成员。<br>不同的是每个元素都会关联一个double类型的分数，通过分数为集合中的成员进行从小到达排序。<br>zset的成员是唯一的，但分数可用重复，通过zadd添加元素到集合，元素在集合中存在则更新<br>对应score:<br>zadd key score member<br>eg：<br>redis 127.0.0.1:6379&gt; zadd runoob 0 redis<br>(integer) 1<br>redis 127.0.0.1:6379&gt; zadd runoob 0 mongodb<br>(integer) 1<br>redis 127.0.0.1:6379&gt; zadd runoob 0 rabitmq<br>(integer) 1<br>redis 127.0.0.1:6379&gt; zadd runoob 0 rabitmq<br>(integer) 0<br>redis 127.0.0.1:6379&gt; &gt; ZRANGEBYSCORE runoob 0 1000<br>1) “mongodb”<br>2) “rabitmq”<br>3) “redis”<br>6.Rdeis命令<br>客户端启动命令:redis-cli<br>检测redis是否启动:ping，返回pong则启动<br>在远程服务上执行命令:<br>redis-cli -h host -p port -a password<br>eg:<br>以下实例演示了如何连接到主机为 127.0.0.1，端口为 6379 ，密码为 mypass 的 redis 服务上<br>$redis-cli -h 127.0.0.1 -p 6379 -a “mypass”<br>redis 127.0.0.1:6379&gt;<br>redis 127.0.0.1:6379&gt; PING<br>PONG<br>有时候会有中文乱码<br>要在 redis-cli 后面加上 –raw<br>redis-cli –raw<br>就可以避免中文乱码了<br>7.Redis键命令<br>Redis 键命令的基本语法如下：<br>redis 127.0.0.1:6379&gt; COMMAND KEY_NAME<br>eg:<br>redis 127.0.0.1:6379&gt; SET runoobkey redis<br>OK<br>redis 127.0.0.1:6379&gt; DEL runoobkey<br>(integer) 1<br>DEL 是一个命令， runoobkey 是一个键。 如果键被删除成功，命令执行后输出 (integer) 1，否则将输出 (integer) 0<br>常用的几个：<br>DEL key:该命令用于在 key 存在时删除 key<br>DUMP key:序列化给定 key ，并返回被序列化的值<br>EXISTS key:检查给定 key 是否存在<br>EXPIRE key seconds:为给定 key 设置过期时间<br>MOVE key db:将当前数据库的 key 移动到给定的数据库 db 当中<br>PERSIST key:移除 key 的过期时间，key 将持久保持<br>PTTL key:以毫秒为单位返回 key 的剩余的过期时间<br>TTL key:以秒为单位，返回给定 key 的剩余生存时间(TTL, time to live)<br>RENAME key newkey:修改 key 的名称<br>RENAMENX key newkey:仅当 newkey 不存在时，将 key 改名为 newkey 。<br>TYPE key:返回 key 所储存的值的类型<br>8.String<br>字符串常用命令:<br>SET key value:设置指定 key 的值<br>GET key:获取指定 key 的值<br>GETRANGE key start end:返回 key 中字符串值的子字符<br>GETSET key value:将给定 key 的值设为 value ，并返回 key 的旧值(old value)<br>MGET key1 [key2..]:获取所有(一个或多个)给定 key 的值<br>SETEX key seconds value:将值 value 关联到 key ，并将 key 的过期时间设为 seconds (以秒为单位)<br>SETNX key value:只有在 key 不存在时设置 key 的值<br>STRLEN key:返回 key 所储存的字符串值的长度<br>INCRBY key increment:将 key 所储存的值加上给定的增量值(increment)<br>DECRBY key decrement:key 所储存的值减去给定的减量值(decrement)<br>APPEND key value:如果 key 已经存在并且是一个字符串， APPEND 命令将指定的 value 追加到该 key 原来值（value）的末尾<br>9.Hash<br>eg:<br>127.0.0.1:6379&gt;  HMSET runoobkey name “redis tutorial” description “redis basic commands for caching” likes 20 visitors 23000<br>OK<br>127.0.0.1:6379&gt;  HGETALL runoobkey<br>1) “name”<br>2) “redis tutorial”<br>3) “description”<br>4) “redis basic commands for caching”<br>5) “likes”<br>6) “20”<br>7) “visitors”<br>8) “23000”<br>hash常用命令:<br>HDEL key field1 [field2]:删除一个或多个哈希表字段<br>HEXISTS key field:查看哈希表 key 中，指定的字段是否存在<br>HGET key field:获取存储在哈希表中指定字段的值<br>HGETALL key:获取在哈希表中指定 key 的所有字段和值<br>INCRBY key field increment:为哈希表 key 中的指定字段的整数值加上增量 increment<br>HKEYS key:获取所有哈希表中的字段<br>HLEN key:获取哈希表中字段的数量<br>HMGET key field1 [field2]:获取所有给定字段的值<br>HMSET key field1 value1 [field2 value2 ]:同时将多个 field-value (域-值)对设置到哈希表key中<br>HSET key field value:将哈希表 key 中的字段 field 的值设为 value<br>HVALS key:获取哈希表中所有值<br>10.List<br>列表命令:<br>BLPOP key1 [key2 ] timeout:移出并获取列表的第一个元素,如果列表没有元素会阻塞列表直到等待超<br>时或发现可弹出元素为止<br>LINDEX key index:通过索引获取列表中的元素<br>LINSERT key BEFORE|AFTER pivot value:在列表的元素前或者后插入元素<br>LLEN key:获取列表长度<br>LPOP key:移出并获取列表的第一个元素<br>LPUSH key value1 [value2]:将一个或多个值插入到列表头部<br>LRANGE key start stop:获取列表指定范围内的元素<br>LREM key count value:移除列表元素<br>LSET key index value:通过索引设置列表元素的值<br>RPOP key:移除并获取列表最后一个元素<br>RPUSH key value1 [value2]:在列表中添加一个或多个值<br>11.Set<br>集合命令:<br>SADD key member1 [member2]:向集合添加一个或多个成员<br>SCARD key:获取集合的成员数<br>SDIFF key1 [key2]:返回给定所有集合的差集<br>SINTER key1 [key2]:返回给定所有集合的交集<br>SISMEMBER key member:判断 member 元素是否是集合 key 的成员<br>SMEMBERS key:返回集合中的所有成员<br>SMOVE source destination member:将 member 元素从 source 集合移动到 destination 集合<br>SREM key member1 [member2]:移除集合中一个或多个成员<br>SUNION key1 [key2]:返回所有给定集合的并集<br>12.sorted set<br>有序集合命令:<br>ZADD key score1 member1 [score2 member2]:向有序集合添加一个或多个成员，或者更新已存在成<br>员的分数<br>ZCARD key:获取有序集合的成员数<br>ZINCRBY key increment member:有序集合中对指定成员的分数加上增量 increment<br>ZCOUNT key min max:计算在有序集合中指定区间分数的成员数<br>ZLEXCOUNT key min max:在有序集合中计算指定字典区间内成员数量<br>ZRANGE key start stop [WITHSCORES]:通过索引区间返回有序集合成指定区间内的成员<br>ZRANGEBYLEX key min max [LIMIT offset count]:通过字典区间返回有序集合的成员<br>ZSCORE key member:返回有序集中，成员的分数值<br>ZREVRANK key member:返回有序集合中指定成员的排名，有序集成员按分数值递减(从大到小)排序<br>…好多，看的眼花缭乱，要用的时候搜一下吧</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/08/JVM学习笔记-一/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1750,7 +1870,7 @@ source filename
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">10</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1763,7 +1883,7 @@ source filename
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
