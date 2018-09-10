@@ -249,6 +249,127 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/10/JVM学习笔记-三/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="hjy">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/timg.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/09/10/JVM学习笔记-三/" itemprop="url">JVM学习笔记(三)</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-10T13:59:29+08:00">
+                2018-09-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>19.安全区域<br>Safepoint机制保证了程序执行时，在短时间内就可进入GC的Safepoint。但是，程序不执行时，也就是没有分配CPU时间，典型的例子就是线程处于Sleep或者Blocked状态，这时线程无法响应JVM的中断请求，”走”到安全的地方去挂起，JVM也显然不太可能等待线程重新分配CPU时间。对于这种情况，就需要安全区域来解决。安全区域是指在一段代码中，引用关系不会发生变化，在这个区域任意地方GC都是安全的，也可以把Saft Region看做是扩展了的<br>Safepoint。在线程执行到Safe Region中的代码时，首先标识自己已经进入了Safe Region，那样，当在这段<br>时间里JVM要发起GC时就不用管标识自己为Safe Region状态的线程了。线程离开安全区域时，它要检查系统是否已经<br>完成了根节点枚举(或者是整个GC过程)，如果完成了，那线程就继续执行，否则它就必须等待直到收到可用安全离开安<br>全区域的信号为止。<br>20.垃圾收集器<br>因为到目前为止还没有最好的垃圾收集器出现，更没有万能的收集器，所以我们挑选的只是最适合的收集器<br>(1)Serial收集器<br>Serial收集器是最基本，发展历史最悠久的收集器，曾经(JDK1.3.1之前)在虚拟机新生代收集的唯一选择，这个<br>收集器是一个单线程的收集器，但它的单线程并不仅仅说明它只会使用一个CPU或一条线程去完成垃圾收集工作，更<br>重要的是它在进行垃圾收集时，必须暂停其他所有的工作线程，直到它收集结束。这项工作是由虚拟机在后台自动发起<br>和自动完成的，在用户不可见的情况下把用户正常工作的线程全部停掉，这对很多应用来说是难以接受的。从JDK1.3开始，HotSpot虚拟机开发团队为消除或者减少工作线程因内存回收而导致的停顿的努力一直在进行着，从Serial收集器到Parallel收集器，再到CMS乃至GC收集器的最新前言成功G1收集器，收集器越来越优秀，用户线程的停顿时间在不断缩短，但是仍然没有办法完全消除。虽然如此，Serial收集器现在依然是虚拟机运行在Client模式下默认的新生代收集器，它有着优于其他收集器的地方:简单而高效，对于限定单个CPU的环境来说，Serial收集器由于没有线程交互的<br>开销，专心做垃圾收集自然可用获得最高的单线程收集效率，在用户桌面的应用场景中，分配给虚拟机管理的内存一般不会很大，收集几十兆甚至一两百兆的新生代，停顿时间完全可用控制在几十毫秒最多100毫秒以内，只要不是频繁发生，这点停顿还是可以接受的，所以Serial收集器对于运行在Client模式下的虚拟机来说是一个很好的选择。<br>(2)ParNew收集器<br>ParNew收集器其实就是Serial收集器的多线程版本，除了使用多线程进行垃圾回收之外，其余如可控参数，收集算法，对象分配规则，回收策略等都与Serial收集器完全一样。虽然并没有太多创新之处，但它却是许多运行在Server模式下的虚拟机中首选的新生代收集器，其中有一个与性能无关的很重要的原因是，除了Serial收集器外，只有它能与CMS收集器配合工作。在JDK1.5时期，HotSpot推出了一款在强交互应用中有划时代意义的垃圾收集器–CMS收集器，是HotSpot虚拟机中第一款真正意义上的并发收集器，它第一次实现了让垃圾收集线程与用户线程同时工作。不过CMS<br>作为老年代收集器，却无法与JDK1.4.0已存在的新生代收集器Parallel Scavenge配合工作，所以在JDK1.5中使用<br>CMS来收集老年代时，新生代只能选择ParNew或者Serial收集器中的其中一个。ParNew收集器在单CPU的环境中绝对不会有比Serial收集器更好的效果，甚至于存在线程交互的开销，该收集器在通过超线程技术实现两个CPU的环境中都不能百分之百地保证可以超越Serial收集器。当然，随着使用CPU数量的增加，它对于GC时系统资源的有效利用还是很有好处的。<br>(3)Parallel Scavenge收集器<br>Parallel Scavenge收集器是一个新生代收集器，它也是使用复制算法的收集器，又是并行的多线程收集器。<br>Parallel收集器特点是关注点与其他收集器不同，CMS收集器关注点是尽可能地缩短垃圾收集时用户线程的停顿时间，而Parallel收集器的目标则是达到一个可控制的吞吐量。所谓吞吐量就是CPU用于运行用户代码的时间与CPU总消耗时间的比值，即吞吐量=运行代码时间/(运行用户代码时间+垃圾收集时间)。停顿时间越短就越适合需要与用户交互的程<br>序，良好的响应速度能提高用户体验，而高吞吐量则可用高效率得利用CPU时间，尽快完成程序的运算任务，主要适合在后台运算而且不需要太多交互的任务。通过参数Parallel收集器可用设定控制最大的垃圾收集停顿时间和吞吐量，收集器将尽可能的保证内存回收花费的时间不会超过设定值，但是这个参数并不是设定得小一些就能使得系统的垃圾回收速度变得更快，GC停顿时间是以牺牲吞吐量和新生代的空间换来的。由于与吞吐量关系密切，Parallel收集器也经常被称作”吞吐量优先”收集器，该收集器还有一个开关参数，当这个参数打开后，就不需要手工指定新生代的大小，Eden与<br>Survivor区的比例等细节参数了，虚拟机会根据当前系统的运行情况收集性能监控信息，动态调整这些参数以提供最合适的停顿时间或者最大吞吐量，这种方式称为GC自适应策略。自适应调节策略也是Parallel收集器与ParNew收集器的一个重要区别。<br>(4)Serial Old收集器<br>Serial Old是Serial收集器的老年代版本，同样是一个单线程收集器，使用”标记-整理”算法，这个收集器的主要意义也是给在于Client模式下的虚拟机使用。它主要有两大用途:一种用途是在JDK1.5以及之前的版本中与Parallel<br>Scavenge收集器搭配使用，另一种途径就是作为CMS收集器的后备预案。<br>(5)Parallel Old收集器<br>同样，他是Parallel Scavenge收集器的老年代版本，使用多线程和”标记-整理”算法，这个收集器是在JDK1.6中才<br>开始提供的，在此之前，新生代的Parallel Scavenge收集器一直处于比较尴尬的状态。原因是如果新生代选择了<br>Parallel收集器，除了Serial Old收集器别无选择。由于老年代的Serial Old收集器在服务应用性能上的<br>“拖累”，使用了Parallel Scavenge收集器也未必能在整体应用上获得吞吐量最大化的效果，由于单线程的老年代<br>收集中无法充分利用服务器CPU的处理能力，在老年代很大而且硬件比较高级的环境中，这种组合的吞吐量甚至还不一<br>定有ParNew加CMS组合好用。直到Parallel Old收集器出现后，”吞吐量优先“收集器终于有了名副其实的组合，<br>在注重吞吐量以及CPU资源敏感的场合，都可以优先考虑Parallel Scavenge加Parallel Old收集器。<br>(6)CMS收集器<br>CMS收集器是一种以最短回收停顿时间为目标的收集器。目前很大一部分Java应用中在互联网或者B/S系统的服务器端<br>上，这类应用尤其重视服务的响应速度，希望系统停顿时间最短，以给用户带来较好的体验。CMS收集器就非常符合这类应用的需求。CMS收集器是基于”标记-清楚”算法实现的，他的运作过程相对于其他几种收集器来说更复杂一些，整个过程分为4个步骤，包括:1)初始标记，2)并发标记，3)重新标记，4)并发清除，其中初始标记和重新标记这两个步骤仍然<br>需要”Stop The World”。初始标记仅仅只是标记一下GC Roots能直接关联到的对象，速度很快，并发标记阶段就是<br>进行GC Roots Tracing的过程，而重新标记阶段则是为了修正并发标记期间因用户程序继续运作而导致标记产生变动<br>的那一部分对象的标记记录，这个阶段停顿时间一般会比初始标记稍长一些，但远比并发标记的时间短。由于整个过程中耗时最长的并发标记和并发清除过程收集器都可以与用户线程一起工作，从总体上来说，CMS收集器的内存回收过程是与用户线程一起并发执行的。CMS是一款优秀的收集器，它的主要优点:并发收集，低停顿，但是CMS有以下3个明显的<br>缺点:<br>1)对CPU资源非常敏感<br>面向并发设计的程序都对CPU比较敏感，在并发阶段，它不会导致用户停顿，但是会因为占用了一部分线程(或者CPU<br>资源)而导致应用程序变慢，总吞吐量会降低。CMS默认启动的回收线程数是(CPU数量+3)/4，也就是当CPU在4个<br>以上时，并发回收时垃圾收集线程使用了不少于25%的CPU资源，并随着CPU的增加而下降。但是当CPU不足4个时，CMS堆用户程序的影响就可能变得很大。本来CPU的负载就比较大，还分出一半的运算能力去执行垃圾收集线程，就可能导致用户程序的执行速度突然降低百分之50，让人无法接受。为了应付这种情况，虚拟机提供了一种称为”增量式并发收集器”的CMS收集变种，所做的事情和单CPU年代PC机操作系统使用抢占式来模拟多任务机制的思想一样，就是在并发标记，清理的时候让GC线程，用户线程交替进行，尽量减少GC线程的独占资源的时间，这样整个垃圾收集过程会更长，但对<br>用户的影响就会显得少一些，也就是速度下降的没有那么明显。实践证明，增量时的CMS收集器效果很一般，在目前的版本中，已经不再提倡用户使用<br>2)无法处理浮动垃圾<br>CMS收集器无法处理浮动垃圾，可能出现”Concurrent Mode Failure”失败而导致另一此Full GC的产生。由于<br>CMS并发清理阶段用户线程还在运行着，伴随程序运行自然就还会有新的垃圾不断产生，这一部分垃圾出现在标记过程之后，CMS无法在当此收集中处理它们，只好留到下一次GC时再清理掉。这一部分垃圾就称为”浮动垃圾”。也是由于垃圾收集阶段用户线程还需运行，还需要预留足够的内存空间给用户线程使用，因此CMS收集器不能像其他的收集器那样等到老年代几乎完全被填满了再进行收集，需要预留一部分空间提供并发收集时程序运作使用。<br>3)空间碎片<br>CMS是基于”标记-清除”算法实现的收集器，每次收集结束时会有大量的空间碎片产生。空间碎片过多时，将会给大对象的分配带来很大的麻烦，往往会出现老年代还有很大的空间剩余，但是无法找到足够大的连续空间来分配当前对象，不得不提前一次触发Full GC。为了解决这个问题，CMS收集器提供了一个开关参数，默认是开启的，用于在CMS收集器顶不<br>住要进行Full GC时开启内存碎片的合并整理过程，内存整理的过程是无法并发的，空间碎片的问题没有了，但是停顿<br>时间不得不变长。虚拟机设计者还提供了另外一个参数用于设置执行多少次不压缩的Full GC后，跟着来一次带压缩<br>的，默认值为0，表示每次进入Full GC时都进行碎片整理。</p>
+<p>ps:<br>今天看虚拟机看的快吐了，信息量有点大，打算搞一搞算法和计组课设转换下心情了</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/09/JVM学习笔记-二/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1606,130 +1727,6 @@ source filename
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/06/Linux学习笔记-一/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="hjy">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/timg.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/07/06/Linux学习笔记-一/" itemprop="url">Linux学习笔记(一)</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-06T18:19:03+08:00">
-                2018-07-06
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          《鸟哥的Linux私房菜》读书笔记
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/07/06/Linux学习笔记-一/">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1784,7 +1781,7 @@ source filename
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">12</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
